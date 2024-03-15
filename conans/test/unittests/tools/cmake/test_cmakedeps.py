@@ -187,7 +187,9 @@ def test_component_name_same_package():
         cmakedeps = CMakeDeps(conanfile)
         files = cmakedeps.content
         target_cmake = files["mypkg-Target-release.cmake"]
-        assert "$<$<CONFIG:Release>:${mypkg_mypkg_mypkg_INCLUDE_DIRS_RELEASE}> APPEND)" \
+        print(target_cmake)
+        assert """APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+                     $<$<CONFIG:Release>:${mypkg_mypkg_mypkg_INCLUDE_DIRS_RELEASE}>)""" \
                in target_cmake
 
         data_cmake = files["mypkg-release-x86-data.cmake"]
